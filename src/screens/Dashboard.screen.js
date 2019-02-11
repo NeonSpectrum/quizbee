@@ -14,7 +14,7 @@ export default class Dashboard extends Component {
   }
 
   componentDidMount() {
-    socket.on('question', ({ question, answers, correctAnswer }) => {
+    socket.on('givequestion', ({ question, answers, correctAnswer }) => {
       this.setState({ question, answers, correctAnswer })
     })
   }
