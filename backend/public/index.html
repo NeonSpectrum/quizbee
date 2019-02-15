@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  <!-- <input type="text" name="chatbox">
+  <button type="submit">Submit</button> -->
+  <button id="previous" disabled>Previous</button>&nbsp;
+  <button id="next">Next</button>
+  <div id="show"></div>
+<script src="assets/js/jquery.min.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+  var index = 0;
+  var questions = null;
+  var socket = io();
+  //   socket.on('news', function (data) {
+  //   console.log(data);
+  //   socket.emit('my other event', { my: 'data' });
+  // });
+  // $("button[type='submit']").click(function(){
+  //   var text = $("input[type='text']").val()
+  //   socket.emit('broadcast', text);
+  // })
+
+  // socket.on('output', function (text) {
+  //   console.log(text)
+  //   $("#show").append("<ul>"+JSON.stringify(text)+"</ul>" )
+  //   // console.log(text);
+  // });
+  socket.on('question', function (data) {
+        questions = data;
+        // alert(JSON.stringify(questions))
+        // $("#show").html("<ul>"+JSON.stringify(questions[index])+"</ul>" )
+  });
+  $("#next").click(function(){
+    index+=1;
+    $("#previous").removeAttr("disabled")
+    if(index === questions.length-1){
+      $("#next").attr("disabled",true)
+    }
+    socket.emit('index',questions[index]._id);
+    $("#show").html("<ul>"+JSON.stringify(questions[index])+"</ul>" )
+  })
+
+  $("#previous").click(function(){
+    index-=1;
+    $("#next").attr("disabled",false)
+    if(index === 0){
+      $("#previous").attr("disabled",true)
+    }
+    socket.emit('index',questions[index]._id);
+     $("#show").html("<ul>"+JSON.stringify(questions[index])+"</ul>" )
+  })
+
+  // socket.on('question', function (data) {
+  //   // $("#show").append("<ul>"+JSON.stringify(data)+"</ul>" )
+  //   console.log(data);
+
+  // });
+  
+  
+
+</script>
+</body>
+</html>

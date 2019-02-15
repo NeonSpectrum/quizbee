@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, ImageBackground, TextInput, TouchableOpacity, Alert } from 'react-native'
+import {
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TextInput,
+  TouchableOpacity,
+  Alert
+} from 'react-native'
 import { NavigationActions, StackActions } from 'react-navigation'
 
 import socket from '../socket'
@@ -30,14 +39,14 @@ export default class Login extends Component {
   render() {
     return (
       <ImageBackground source={background} style={styles.background}>
-        <View style={styles.container}>
+        <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <Text style={styles.header}>Quiz Bee{'\n'}System</Text>
           <TextInput style={styles.input} placeholder="Username" />
           <TextInput style={styles.input} placeholder="Password" secureTextEntry />
           <TouchableOpacity style={styles.button} onPress={this._login}>
             <Text style={styles.buttonText}>Login</Text>
           </TouchableOpacity>
-        </View>
+        </KeyboardAvoidingView>
       </ImageBackground>
     )
   }
