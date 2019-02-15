@@ -22,16 +22,36 @@ export default class Login extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {}
+    this.state = { username: null }
 
-    this._login = this._login.bind(this)
+    this.login = this.login.bind(this)
+    this.loginAsHost = this.loginAsHost.bind(this)
   }
 
-  _login() {
+  login() {
+    const { username } = this.state
+    if (!username) {
+      Alert.alert(null, 'Enter username.')
+    } else {
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index: 0,
+          actions: [
+            NavigationActions.navigate({
+              routeName: 'Question',
+              params: { username }
+            })
+          ]
+        })
+      )
+    }
+  }
+
+  loginAsHost() {
     this.props.navigation.dispatch(
       StackActions.reset({
         index: 0,
-        actions: [NavigationActions.navigate({ routeName: 'Dashboard' })]
+        actions: [NavigationActions.navigate({ routeName: 'Host' })]
       })
     )
   }
@@ -41,10 +61,17 @@ export default class Login extends Component {
       <ImageBackground source={background} style={styles.background}>
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <Text style={styles.header}>Quiz Bee{'\n'}System</Text>
-          <TextInput style={styles.input} placeholder="Username" />
+          <TextInput
+            style={styles.input}
+            placeholder="Username"
+            onChangeText={username => this.setState({ username })}
+          />
           <TextInput style={styles.input} placeholder="Password" secureTextEntry />
-          <TouchableOpacity style={styles.button} onPress={this._login}>
+          <TouchableOpacity style={styles.button} onPress={this.login}>
             <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={this.loginAsHost}>
+            <Text style={styles.buttonText}>Login as Host</Text>
           </TouchableOpacity>
         </KeyboardAvoidingView>
       </ImageBackground>
@@ -74,7 +101,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 50,
     textAlign: 'center',
-    marginBottom: 200,
+    marginBottom: 150,
     color: '#fff',
     textShadowColor: 'rgba(0, 0, 0, 0.75)',
     textShadowOffset: { width: -1, height: 1 },
