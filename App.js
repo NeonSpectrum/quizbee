@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { createStackNavigator, createAppContainer } from 'react-navigation'
+import { YellowBox, Platform } from 'react-native'
+import { createStackNavigator, createAppContainer, SafeAreaView } from 'react-navigation'
 import { MessageBarManager, MessageBar } from 'react-native-message-bar'
-import { YellowBox } from 'react-native'
+import Icon from 'react-native-vector-icons/Octicons'
 
 import LoginScreen from './src/screens/Login.screen'
-import QuestionScreen from './src/screens/Question.screen'
-import HostScreen from './src/screens/Host.screen'
+import CreateRoomScreen from './src/screens/CreateRoom.screen'
+import GameStack from './src/stacks/Game.stack'
 
 import socket from './src/socket'
+
+if (Platform.OS === 'android') {
+  SafeAreaView.setStatusBarHeight(0)
+}
 
 YellowBox.ignoreWarnings([
   'Unrecognized WebSocket connection option(s) `agent`, `perMessageDeflate`, `pfx`, `key`, `passphrase`, `cert`, `ca`, `ciphers`, `rejectUnauthorized`. Did you mean to put these under `headers`?'
@@ -15,8 +20,11 @@ YellowBox.ignoreWarnings([
 
 const MainNavigator = createStackNavigator({
   Login: { screen: LoginScreen },
-  Question: { screen: QuestionScreen },
-  Host: { screen: HostScreen }
+  CreateRoom: { screen: CreateRoomScreen },
+  Game: {
+    screen: GameStack,
+    navigationOptions: { header: null }
+  }
 })
 
 const AppContainer = createAppContainer(MainNavigator)

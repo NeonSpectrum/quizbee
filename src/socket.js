@@ -1,3 +1,4 @@
 import SocketIOClient from 'socket.io-client'
+import settings from './settings'
 
-export default SocketIOClient('http://192.168.43.145:3000')
+export default SocketIOClient(settings.url)

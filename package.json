@@ -7,16 +7,18 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "axios": "^0.18.0",
+    "events": "^3.0.0",
     "expo": "^32.0.0",
-    "express": "^4.16.4",
     "moment": "^2.24.0",
-    "mongodb": "^3.1.13",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native-lanscan": "^1.0.3",
     "react-native-maps": "^0.23.0",
     "react-native-message-bar": "^2.0.10",
+    "react-native-simple-dialogs": "^1.1.0",
+    "react-native-vector-icons": "^6.3.0",
     "react-navigation": "^3.2.1",
-    "socket.io": "^2.2.0",
     "socket.io-client": "^2.2.0",
     "underscore": "^1.9.1"
   },
